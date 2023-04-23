@@ -28,6 +28,14 @@ app.use(methodOverride('_method'))
 
 usePassport(app)
 
+// 設定本地變數 res.locals
+app.use((req, res, next) => {
+  console.log(req.user)// 你可以在這裡 console.log(req.user) 等資訊來觀察
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
+
 app.use(routes)
 
 app.listen(PORT, () => {
